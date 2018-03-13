@@ -34,7 +34,7 @@
         @change="handleChange"
         :aria-label="label"
       >
-      <!-- 前置内容 -->
+      <!-- 前置内容  ks:不能加事件... -->
       <span class="el-input__prefix" v-if="$slots.prefix || prefixIcon" :style="prefixOffset">
         <slot name="prefix"></slot>
         <i class="el-input__icon"
@@ -65,7 +65,7 @@
           :class="['el-input__validateIcon', validateIcon]">
         </i>
       </span>
-      <!-- 后置元素 -->
+      <!-- 后置元素  ks:不能加事件... -->
       <div class="el-input-group__append" v-if="$slots.append">
         <slot name="append"></slot>
       </div>

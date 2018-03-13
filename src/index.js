@@ -142,13 +142,14 @@ const components = [
 ];
 
 const install = function(Vue, opts = {}) {
+  //国际化
   locale.use(opts.locale);
   locale.i18n(opts.i18n);
-
+  //注入组件
   components.map(component => {
     Vue.component(component.name, component);
   });
-
+  //注入指令 v-loading
   Vue.use(Loading.directive);
 
   const ELEMENT = {};
@@ -165,7 +166,9 @@ const install = function(Vue, opts = {}) {
   Vue.prototype.$ELEMENT = ELEMENT;
 };
 
-/* istanbul ignore if */
+// 是否浏览器环境
+
+// istanbul ignore if
 if (typeof window !== 'undefined' && window.Vue) {
   install(window.Vue);
 }

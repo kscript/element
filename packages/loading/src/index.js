@@ -46,6 +46,7 @@ const addStyle = (options, parent, instance) => {
     maskStyle.zIndex = PopupManager.nextZIndex();
   } else if (options.body) {
     instance.originalPosition = getStyle(document.body, 'position');
+    //获得实例的scroll位置及尺寸
     ['top', 'left'].forEach(property => {
       let scroll = property === 'top' ? 'scrollTop' : 'scrollLeft';
       maskStyle[property] = options.target.getBoundingClientRect()[property] +
@@ -65,12 +66,15 @@ const addStyle = (options, parent, instance) => {
 };
 
 const Loading = (options = {}) => {
+  //是否服务端渲染?
   if (Vue.prototype.$isServer) return;
   options = merge({}, defaults, options);
+
   if (typeof options.target === 'string') {
     options.target = document.querySelector(options.target);
   }
   options.target = options.target || document.body;
+  //如果不是body,则不全屏
   if (options.target !== document.body) {
     options.fullscreen = false;
   } else {
@@ -81,12 +85,14 @@ const Loading = (options = {}) => {
   }
 
   let parent = options.body ? document.body : options.target;
+  //一个 loading 实例
   let instance = new LoadingConstructor({
     el: document.createElement('div'),
     data: options
   });
-
+  //给实例添加样式
   addStyle(options, parent, instance);
+
   if (instance.originalPosition !== 'absolute' && instance.originalPosition !== 'fixed') {
     addClass(parent, 'el-loading-parent--relative');
   }
